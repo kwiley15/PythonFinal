@@ -42,6 +42,7 @@ plt.xlabel('Country')
 plt.ylabel('Number of Titles')
 plt.show()
 
+
 #top directors based on count of titles
 director_count = df[df['director'] != "unknown"]['director'].value_counts().head(10)
 plt.figure()
