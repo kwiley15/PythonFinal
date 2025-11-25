@@ -19,3 +19,5 @@ SQLAlchemy==2.0.44
 sqlparse==0.5.3
 typing_extensions==4.15.0
 tzdata==2025.2
+
+#please note these are all the packages on my computer, some may not be used in the project
