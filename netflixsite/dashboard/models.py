@@ -17,10 +17,5 @@ class NetflixTitle(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return F"{self.title} ({self.release_year})"
+        return F"{self.title} ,({self.release_year})"
     
-
-    
-
-
-        
