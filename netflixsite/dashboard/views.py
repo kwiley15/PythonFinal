@@ -15,9 +15,9 @@ def index(request):
 
 # Genre distribution plot
 def genre_plot(request):
-    genres = NetflixTitle.objects.values('genre').annotate(count=Count('genre')).order_by('-count')
-    labels = [g['genre'] for g in genres]
-    counts = [g['count'] for g in genres]
+    listed_in = NetflixTitle.objects.values('listed_in').annotate(count=Count('listed_in')).order_by('-count')
+    labels = [g['listed_in'] for g in listed_in]
+    counts = [g['count'] for g in listed_in]
 
     plt.figure(figsize=(10,6))
     plt.bar(labels, counts, color='skyblue')
@@ -35,7 +35,7 @@ def genre_plot(request):
 
 def search(request):
     query = request.GET.get('q', '')
-    genre_filter = request.GET.get('genre', '')
+    genre_filter = request.GET.get('listed_in', '')
     year_filter = request.GET.get('year', '')
     country_filter = request.GET.get('country', '')
 
@@ -44,7 +44,7 @@ def search(request):
     if query:
         results = results.filter(title__icontains=query)
     if genre_filter:
-        results = results.filter(genre=genre_filter)
+        results = results.filter(listed_in=genre_filter)
     if year_filter:
         results = results.filter(release_year=year_filter)
     if country_filter:
@@ -56,13 +56,13 @@ def search(request):
     page_obj = paginator.get_page(page_number)
 
     # Dropdown data
-    genres = NetflixTitle.objects.values_list('genre', flat=True).distinct()
+    Listed_in = NetflixTitle.objects.values_list('listed_in', flat=True).distinct()
     years = NetflixTitle.objects.values_list('release_year', flat=True).distinct().order_by('release_year')
     countries = NetflixTitle.objects.values_list('country', flat=True).distinct()
 
     return render(request, 'dashboard/search.html', {
         'page_obj': page_obj,
-        'genres': genres,
+        'listed_in': Listed_in,
         'years': years,
         'countries': countries,
         'query': query,

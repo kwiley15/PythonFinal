@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from Analysis.DataAnalysis import df
+from DataAnalysis import df
 
 #the 5 visualizations we need (only need 3 but extra marks)
 
@@ -10,6 +10,7 @@ grene_count.plot(kind='bar')
 plt.title('Top 10 Most Common Genres on Netflix')
 plt.xlabel('Genre')
 plt.ylabel('Nummber of Titles') 
+plt.xticks(rotation=90)
 plt.show() 
 
 
@@ -36,10 +37,11 @@ plt.show()
 
 country_count = df['country'].str.split(',').explode().value_counts().head(10)
 plt.figure()
-country_count.plot(kind='bar')
+country_count.plot(kind='bar', )
 plt.title('Top 10 Countries with most netflix titles')
 plt.xlabel('Country')
 plt.ylabel('Number of Titles')
+plt.xticks(rotation=65)
 plt.show()
 
 
@@ -50,4 +52,5 @@ director_count.plot(kind='bar')
 plt.title('Top 10 Directors featured on netflix')
 plt.xlabel('Director')
 plt.ylabel('Number of Titles')
+plt.xticks(rotation=65)
 plt.show()

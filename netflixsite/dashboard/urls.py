@@ -7,3 +7,4 @@ urlpatterns = [
     path('genres_plot/', views.genre_plot, name='genre_plot'),
     path('search/', views.search, name='search'),
 ]
+
