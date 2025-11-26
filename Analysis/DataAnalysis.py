@@ -7,7 +7,7 @@ DATA = Path("Data/netflix_titles.csv")
 OUTPUT_CSV = Path("Data/cleaned_netflix_titles.csv")
 PLOTS_DIR = Path(__file__).resolve().parent.parent / "dashboard" / "static" / "dasboard" / "plots"
 
-
+#load raw data
 df = pd.read_csv(DATA)
 print("data loaded successfully")
 
@@ -16,7 +16,7 @@ print("data loaded successfully")
 #convert date into datetime 
 df['date_added'] = pd.to_datetime(df['date_added'], errors='coerce')
 
-#handel missing date values by filling with the mode 
+#handel missing date values by filling with the mode / most common year
 df['release_year'] = df['release_year'].fillna(df['release_year'].mode()[0])
 
 #fill in missing values was not sure what to do here so we just filled with 'Unknown'

@@ -161,10 +161,31 @@ from django.shortcuts import render
 from .models import NetflixTitle
 from django.db.models import Q
 from django.core.paginator import Paginator
+import pandas as pd
+from pathlib import Path
+
+# Load cleaned data for homepage display
+CLEANED_CSV_PATH = Path(__file__).resolve().parent.parent.parent / "data" / "cleaned_netflix_titles.csv"
+df = pd.read_csv(CLEANED_CSV_PATH)
+
+
 
 # Homepage
 def index(request):
-    return render(request, 'dashboard/index.html')
+    #table_html = df.to_html(classes='table table-striped', index=False)
+    #context = {'table_html': table_html}
+    data = df.values.tolist()  # just the row values
+    columns = df.columns.tolist()  # column headers
+
+    paginator = Paginator(data, 10)  # 10 rows per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "columns": columns,
+        "page_obj": page_obj,
+    }
+    return render(request, 'dashboard/index.html', context)
 
 
 # Plots page using static images
