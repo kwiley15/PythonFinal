@@ -22,7 +22,7 @@ def genre_plot(request):
     plt.figure(figsize=(10,6))
     plt.bar(labels, counts, color='skyblue')
     plt.xticks(rotation=90)
-    plt.tight_layout()
+    
 
     buf = io.BytesIO()
     plt.savefig(buf, format='png')
@@ -51,7 +51,7 @@ def search(request):
         results = results.filter(country=country_filter)
 
     # Pagination
-    paginator = Paginator(results, 10)
+    paginator = Paginator(results, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

@@ -4,6 +4,10 @@ from pathlib import Path
 
 #Load data 
 DATA = Path("Data/netflix_titles.csv") 
+OUTPUT_CSV = Path("Data/cleaned_netflix_titles.csv")
+PLOTS_DIR = Path("plots/static/")
+PLOTS_DIR.mkdir(parents=True, exist_ok=True)
+
 df = pd.read_csv(DATA)
 print("data loaded successfully")
 
@@ -22,11 +26,9 @@ for col in ['director', 'cast', 'country', 'rating']:
 #extract year from date_added
 df['year_added'] = df['date_added'].dt.year
 
-print("data cleaned successfully")
-print(df.info())
-
-print("missing values per column")
-print(df.isnull().sum())
+#save cleaned data
+df.to_csv(OUTPUT_CSV, index=False)
+print(f"cleaned data saved to {OUTPUT_CSV}")
 
 
 

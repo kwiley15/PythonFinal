@@ -1,27 +1,3 @@
-#import pandas as pd
-#from .models import NetflixTitle
-
-#df = pd.read_csv("../data/netflix_titles.csv")
-#for _, row in df.iterrows():
-#   NetflixTitle.objects.create(
-#        show_id=row['show_id'],
-#       title=row['title'],
-#        type=row['type'],
-#        director=row['director'],
-#        country=row['country'],
-#        release_year=row['release_year'],
-#        rating=row['rating'],
-#        date_added=row['date_added'],
-#        listed_in=row['listed_in']
-#    )
-
-
-
-#
-#
-#
-#
-#
 import os
 import django
 import pandas as pd
@@ -34,7 +10,7 @@ django.setup()
 from dashboard.models import NetflixTitle
 
 # CSV path
-csv_path = Path(__file__).resolve().parent.parent / "data" / "netflix_titles.csv"
+csv_path = Path(__file__).resolve().parent.parent / "data" / "cleaned_netflix_titles.csv"
 
 # Load CSV
 df = pd.read_csv(csv_path)
