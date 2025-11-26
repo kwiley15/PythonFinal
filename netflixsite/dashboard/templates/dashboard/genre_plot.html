@@ -1,11 +1,61 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 	<head>
 		<title>Genre Plot</title>
 	</head>
 	<body>
 		<h1>Genre Distribution Plot</h1>
-		<img src="data:image/png;base64,{{ data }}" alt="Genre Plot" />
+
+		<p><a href="{% url 'index' %}">Back to Home</a></p>
+	</body>
+</html>
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Netflix Plots Dashboard</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> 
+	</head>
+	<body>
+		<h1>Netflix Analysis Plots</h1>
+
+		{% load static %}
+
+		<h2>Top 10 Genres</h2>
+		<img
+			src="{% static 'dashboard/plots/Most_Common_Genres.png ' %}"
+			alt="Top 10 Genres"
+			style="max-width: 90%; height: auto; margin-bottom: 30px"
+		/>
+
+		<h2>Rating Distribution</h2>
+		<img
+			src="{% static 'dashboard/plots/Content_Distribution_by_Rating.png' %}"
+			alt="Rating Distribution"
+			style="max-width: 90%; height: auto; margin-bottom: 30px"
+		/>
+
+		<h2>Content Added Over Years</h2>
+		<img
+			src="{% static 'dashboard/plots/Trend_of_Movies_and_TV_Shows_Added_Over_Years.png' %}"
+			alt="Content Added Over Years"
+			style="max-width: 90%; height: auto; margin-bottom: 30px"
+		/>
+
+		<h2>Top Countries with Most Titles</h2>
+		<img
+			src="{% static 'dashboard/plots/Countries_with_Most_Content.png' %}"
+			alt="Top Countries"
+			style="max-width: 90%; height: auto; margin-bottom: 30px"
+		/>
+
+		<h2>Top Directors Featured on Netflix</h2>
+		<img
+			src="{% static 'dashboard/plots/Top_Directors_on_Netflix.png' %}"
+			alt="Top Directors"
+			style="max-width: 90%; height: auto; margin-bottom: 30px"
+		/>
+
 		<p><a href="{% url 'index' %}">Back to Home</a></p>
 	</body>
 </html>

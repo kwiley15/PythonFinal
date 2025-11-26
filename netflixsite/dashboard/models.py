@@ -4,7 +4,7 @@ from django.db import models
 class NetflixTitle(models.Model):
 
     show_id = models.CharField(max_length=255)
-    type = models.CharField(max_length=50) 
+    type = models.CharField(max_length=50, unique=True) 
     title = models.CharField(max_length=255)
     director = models.CharField(max_length=255, null=True, blank=True)
     cast = models.TextField(null=True, blank=True)
