@@ -10,12 +10,17 @@
     <form method="get">
         <input type="text" name="q" placeholder="Search by title, director, cast" value="{{ query }}">
         
-        <select name="listed_in">
-            <option value="">All Genres</option>
-            {% for g in listed_in %}
-                <option value="{{ g }}" {% if g == genre_filter %}selected{% endif %}>{{ g }}</option>
+        <div>
+            <label><strong>Genres:</strong></label><br>
+
+            {% for g in listed_in_choices  %}
+                <label class="me-3">
+                    <input type="checkbox" name="listed_in" value="{{ g }}"
+                        {% if g in selected_grenres %}checked{% endif %}>
+                    {{ g }}
+                </label>
             {% endfor %}
-        </select>
+        </div>
 
         <select name="year">
             <option value="">All Years</option>

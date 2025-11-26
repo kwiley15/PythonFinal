@@ -50,7 +50,7 @@ plt.show()
 
 
 #top directors based on count of titles
-director_count = df[df['director'] != "unknown"]['director'].value_counts().head(10) # count directors excluding 'unknown'
+director_count = df[df['director'] != "Unknown"]['director'].value_counts().head(10) # count directors excluding 'unknown'
 plt.figure()
 director_count.plot(kind='bar') # bar chart
 plt.title('Top 10 Directors featured on netflix')

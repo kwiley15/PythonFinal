@@ -44,10 +44,10 @@ def genre_plot(request):
 def search(request):
     # capture search query and filters from GET parameters
     query = request.GET.get('q', '')
-    genre_filter = request.GET.get('listed_in', '')
+    genre_filter = request.GET.getlist('listed_in')
     year_filter = request.GET.get('year', '')
     country_filter = request.GET.get('country', '')
-
+    selected_genres = [g for g in genre_filter if g]
     #start with all the database entries
     results = NetflixTitle.objects.all()
 
@@ -60,8 +60,9 @@ def search(request):
         )
 
     # apply filter if user selected any 
-    if genre_filter:
-        results = results.filter(listed_in__icontains=genre_filter)
+    if selected_genres: 
+        for grenre in selected_genres:
+            results = results.filter(listed_in__icontains=grenre)
     if year_filter:
         results = results.filter(release_year=year_filter)
     if country_filter:
@@ -75,19 +76,24 @@ def search(request):
     page_number = request.GET.get('page') # get current page number from request
     page_obj = paginator.get_page(page_number) # get the page object for the current page
 
+    
     # Dropdown/filter data (distinct values from database)
-    listed_in_choices = NetflixTitle.objects.values_list('listed_in', flat=True).distinct()
+    
+    listed_in_choices = ["Action", "Adventure", "Anime", "Children", "Comedies", "Documentaries",
+                         "Dramas", "Horror", "Independent", "Music", "Romantic", "Sci-Fi", "Thrillers"]
+
+
     years = NetflixTitle.objects.values_list('release_year', flat=True).distinct().order_by('release_year')
     countries = NetflixTitle.objects.values_list('country', flat=True).distinct()
     
     #send results and filter values back to the search template
     return render(request, 'dashboard/search.html', {
         'page_obj': page_obj,
-        'listed_in': listed_in_choices,
+        'listed_in_choices': listed_in_choices,
         'years': years,
         'countries': countries,
         'query': query,
-        'genre_filter': genre_filter,
+        'selected_genres': selected_genres,
         'year_filter': year_filter,
         'country_filter': country_filter
     })
