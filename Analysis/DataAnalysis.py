@@ -5,8 +5,8 @@ from pathlib import Path
 #Load data 
 DATA = Path("Data/netflix_titles.csv") 
 OUTPUT_CSV = Path("Data/cleaned_netflix_titles.csv")
-PLOTS_DIR = Path("plots/static/")
-PLOTS_DIR.mkdir(parents=True, exist_ok=True)
+PLOTS_DIR = Path(__file__).resolve().parent.parent / "dashboard" / "static" / "dasboard" / "plots"
+
 
 df = pd.read_csv(DATA)
 print("data loaded successfully")

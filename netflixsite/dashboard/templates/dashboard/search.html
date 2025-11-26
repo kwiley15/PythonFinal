@@ -1,36 +1,4 @@
-<!--<!DOCTYPE html>
-<html>
-	<head>
-		<title>Search Netflix Content</title>
-	</head>
-	<body>
-		<h1>Search Netflix Content</h1>
-		<form method="get">
-			<input type="text" name="q" placeholder="Search by title" />
-			<button type="submit">Search</button>
-		</form>
-
-		<ul>
-			{% for item in page_obj %}
-			<li>{{ item.title }} ({{ item.release_year }})</li>
-			{% empty %}
-			<li>No results found.</li>
-			{% endfor %}
-		</ul>
-
-		<div class="pagination">
-			{% if page_obj.has_previous %}
-			<a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-			{% endif %} Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages
-			}} {% if page_obj.has_next %}
-			<a href="?page={{ page_obj.next_page_number }}">Next</a>
-			{% endif %}
-		</div>
-
-		<p><a href="{% url 'index' %}">Back to Home</a></p>
-	</body>
-</html>-->
-
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,6 +49,64 @@
         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
         {% if page_obj.has_next %}
             <a href="?page={{ page_obj.next_page_number }}&q={{ query }}&genre={{ genre_filter }}&year={{ year_filter }}&country={{ country_filter }}">Next</a>
+        {% endif %}
+    </div>
+
+    <p><a href="{% url 'index' %}">Back to Home</a></p>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Netflix Content</title>
+</head>
+<body>
+    <h1>Search & Filter Netflix Content</h1>
+
+    <form method="get">
+        <input type="text" name="q" placeholder="Search by title, director, cast" value="{{ query }}">
+        
+        <select name="listed_in">
+            <option value="">All Genres</option>
+            {% for g in listed_in %}
+                <option value="{{ g }}" {% if g == genre_filter %}selected{% endif %}>{{ g }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="year">
+            <option value="">All Years</option>
+            {% for y in years %}
+                <option value="{{ y }}" {% if y|stringformat:"s" == year_filter|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="country">
+            <option value="">All Countries</option>
+            {% for c in countries %}
+                <option value="{{ c }}" {% if c == country_filter %}selected{% endif %}>{{ c }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+        {% for item in page_obj %}
+            <li>{{ item.title }} ({{ item.release_year }}) - {{ item.listed_in }} - {{ item.country }}</li>
+        {% empty %}
+            <li>No results found.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&q={{ query }}&listed_in={{ genre_filter }}&year={{ year_filter }}&country={{ country_filter }}">Previous</a>
+        {% endif %}
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&q={{ query }}&listed_in={{ genre_filter }}&year={{ year_filter }}&country={{ country_filter }}">Next</a>
         {% endif %}
     </div>
 

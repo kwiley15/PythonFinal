@@ -26,9 +26,12 @@ for _, row in df.iterrows():
             'title': row['title'],
             'type': row['type'],
             'director': row['director'],
+            'cast': row['cast'],
             'country': row['country'],
             'release_year': row['release_year'],
             'rating': row['rating'],
+            'duration': row['duration'],
+            'description': row['description'],
             'date_added': row['date_added'].date() if pd.notnull(row['date_added']) else None,
             'listed_in': row['listed_in']
         }
