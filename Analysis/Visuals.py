@@ -12,7 +12,7 @@ plt.title('Top 10 Most Common Genres on Netflix')
 plt.xlabel('Genre')
 plt.ylabel('Nummber of Titles') 
 plt.xticks(rotation=25) # rotate x labels for better readability
-plt.savefig(PLOTS_DIR/ "Most_Common_Genres.png") # save as image 
+plt.savefig(PLOTS_DIR/ "Figure_1.png") # save as image 
 plt.show() 
 
 
@@ -22,7 +22,7 @@ plt.figure()
 rating_count.plot(kind='pie', autopct='%1.1f%%') #pie chart 
 plt.title('netflix rating distribution')
 plt.ylabel('')
-plt.savefig(PLOTS_DIR/ "Content_Distribution_by_Rating.png") # save as image
+plt.savefig(PLOTS_DIR/ "Figure_2.png") # save as image
 plt.show()
 
 
@@ -33,7 +33,7 @@ yearly_trend.plot(marker='o') # line plot with markers
 plt.title('Netflix content added by Years') 
 plt.xlabel('Year Added')
 plt.ylabel('Number of Titles Added')
-plt.savefig(PLOTS_DIR/ "Trend_of_Movies_and_TV_Shows_Added_Over_Years.png") # save as image
+plt.savefig(PLOTS_DIR/ "Figure_3.png") # save as image
 plt.show()
 
 #which country has the most content
@@ -45,7 +45,7 @@ plt.title('Top 10 Countries with most netflix titles')
 plt.xlabel('Country')
 plt.ylabel('Number of Titles')
 plt.xticks(rotation=25) # rotate x labels for better readability
-plt.savefig(PLOTS_DIR/ "Countries_with_Most_Content.png") # save as image
+plt.savefig(PLOTS_DIR/ "Figure_4.png") # save as image
 plt.show()
 
 
@@ -57,7 +57,7 @@ plt.title('Top 10 Directors featured on netflix')
 plt.xlabel('Director')
 plt.ylabel('Number of Titles')
 plt.xticks(rotation=25) # rotate x labels for better readability
-plt.savefig(PLOTS_DIR/ "Top_Directors_on_Netflix.png") # save as image
+plt.savefig(PLOTS_DIR/ "Figure_5.png") # save as image
 plt.show()
 
 
