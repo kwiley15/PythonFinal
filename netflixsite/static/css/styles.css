@@ -31,76 +31,76 @@ h1, h2, h3 {
 
 /* Filter Box */
 .filter-box {
-    background: #1f1f1f;
-    padding: 15px;
+    background: #1f1f1f; /*darker for background to tell difference*/
+    padding: 15px; 
     border-radius: 8px;
-    border: 1px solid #333;
+    border: 1px solid #333; /*boarder defintnions */
 }
 
 /* Buttons */
 .btn-netflix {
-    background-color: #e50914;
-    color: white;
+    background-color: #e50914; /*red background*/
+    color: white; /*white text */
     font-weight: bold;
 }
 
 .btn-netflix:hover {
-    background-color: #b00610;
+    background-color: #b00610; /* darker red for hovering */
 }
 
 /* List Groups */
 .list-group-item {
-    background: #1f1f1f;
-    color: #e5e5e5;
-    border: 1px solid #333;
+    background: #1f1f1f; /*dark table background*/
+    color: #e5e5e5; /*light table text to be able to see data */
+    border: 1px solid #333; /*basic boader defintion*/
 }
 
-/* TABLE FIX — Fully dark + readable */
+/*table*/
 table.table {
-    background-color: #1f1f1f !important;
-    color: #e5e5e5 !important;
-    border-color: #333 !important;
+    background-color: #1f1f1f !important; /*dark tabel background*/
+    color: #e5e5e5 !important; /*light text to see data */
+    border-color: #333 !important; /*basic boader defintion*/
 }
 
 table.table th {
-    background-color: #111 !important;
-    color: #d30101 !important;
+    background-color: #111 !important; /*darker header*/
+    color: #d30101 !important; /*bright red text for headers */
     font-weight: bold;
     border-color: #333 !important;
 }
 
 table.table td {
-    background-color: #1f1f1f !important;
-    color: #fdfdfd !important;
+    background-color: #1f1f1f !important; /*table cell background*/
+    color: #fdfdfd !important; /*white to be able to read text */
     border-color: #333 !important;
 }
 
 /* Links */
 a {
     text-decoration: none;
-    color: #e50914;
+    color: #e50914; /*red links */
 }
 
 a:hover {
-    color: #b00610;
+    color: #b00610; /* different shade of red on hover*/
 }
 
 /* Pagination */
 .pagination .page-link {
-    background-color: #1f1f1f !important;
-    color: #e5e5e5 !important;
-    border: 1px solid #333 !important;
+    background-color: #1f1f1f !important; /*dark background for pagination links*/
+    color: #e5e5e5 !important; /* white text to be able to see */
+    border: 1px solid #333 !important; /*boarder for links */
     font-weight: bold;
 }
 
 .pagination .page-link:hover {
-    background-color: #e50914 !important;
-    color: #fff !important;
-    border-color: #e50914 !important;
+    background-color: #e50914 !important; /*red hover effect */
+    color: #fff !important; /* white text on hover */
+    border-color: #e50914 !important; /* boader matches background */
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #e50914 !important;
-    color: #fff !important;
-    border-color: #e50914 !important;
+    background-color: #e50914 !important; /* red background for active page*/
+    color: #fff !important; /*white text */
+    border-color: #e50914 !important; /*boader same as background */
 }
