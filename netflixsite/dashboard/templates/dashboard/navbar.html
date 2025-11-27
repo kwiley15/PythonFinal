@@ -5,7 +5,7 @@
 	style="background-color: #141414; border-bottom: 1px solid #333"
 >
 	<div class="container-fluid">
-		<!-- Brand / Logo -->
+		<!-- Brand / Logo linking to home page-(fun exrta thing)-->
 		<a class="navbar-brand text-danger fw-bold" href="{% url 'index' %}"
 			>Netflix Dashboard</a
 		>
@@ -14,13 +14,13 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ms-auto">
 				<li class="nav-item">
-					<a class="nav-link text-light" href="{% url 'index' %}">Home</a>
+					<a class="nav-link text-light" href="{% url 'index' %}">Home</a><!--Link to homepage-->
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light" href="{% url 'search' %}">Search</a>
+					<a class="nav-link text-light" href="{% url 'search' %}">Search</a><!--Link to search page-->
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light" href="{% url 'genre_plot' %}">Plots</a>
+					<a class="nav-link text-light" href="{% url 'genre_plot' %}">Plots</a><!--Link to plots page -->
 				</li>
 			</ul>
 		</div>
