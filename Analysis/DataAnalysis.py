@@ -5,6 +5,7 @@ from pathlib import Path
 #Load data 
 DATA = Path("Data/netflix_titles.csv") 
 OUTPUT_CSV = Path("Data/cleaned_netflix_titles.csv")
+#path for visuals 
 PLOTS_DIR = Path(__file__).resolve().parent.parent / "netflixsite" / "dashboard" / "static" / "dashboard" / "plots"
 PLOTS_DIR.mkdir(parents=True, exist_ok=True)
 

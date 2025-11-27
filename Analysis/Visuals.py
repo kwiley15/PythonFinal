@@ -61,4 +61,4 @@ plt.savefig(PLOTS_DIR/ "Figure_5.png") # save as image
 plt.show()
 
 
-print("all plots saved")
+print("all plots saved") # save all charts (just so we know they are saved)

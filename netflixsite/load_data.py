@@ -3,14 +3,14 @@ import django
 import pandas as pd
 from pathlib import Path
 
-# configure Django settings
+# Django settings
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "netflixsite.settings")
 django.setup()
 
 # import model after setting up Django to insert / update data
 from dashboard.models import NetflixTitle
 
-# CSV path to cleaned data 
+# CSV path to cleaned data file (made this mistake with old one )
 csv_path = Path(__file__).resolve().parent.parent / "data" / "cleaned_netflix_titles.csv"
 
 # Loading cleaned CSV

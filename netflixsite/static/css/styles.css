@@ -1,32 +1,32 @@
-/* Global Dark Theme */
+/* this CSS sheet is styling for all pages  */
 body {
-    background-color: #1a1a1a !important;
-    color: #e5e5e5;
+    background-color: #1a1a1a !important;  /*dark background for entire page*/
+    color: #e5e5e5;/* light color for readability (had it grey couldnt see anything)*/
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3 {
-    color: #e50914;
-    font-weight: bold;
+    color: #e50914; /*red for headings*/
+    font-weight: bold; /*bold heading*/
 }
 
 /* Navbar */
 .navbar {
-    background-color: #111 !important;
-    border-bottom: 1px solid #333;
+    background-color: #111 !important; /*dark background for navbar*/
+    border-bottom: 1px solid #333; /*small border for seperation */
 }
 
 .navbar-brand {
-    font-weight: bold;
-    color: #e50914 !important;
+    font-weight: bold; 
+    color: #e50914 !important; /*red for text on navbar*/
 }
 
 .nav-link {
-    color: #e5e5e5 !important;
+    color: #e5e5e5 !important; /*ligh color for navbar links (could not see them any other color)*/
 }
 
 .nav-link:hover {
-    color: #e50914 !important;
+    color: #e50914 !important; /*red color for hovering over a button*/
 }
 
 /* Filter Box */
