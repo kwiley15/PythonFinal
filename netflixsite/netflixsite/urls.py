@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+
+#how to route URLs to views
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls), # Admin site WE DONT HAVE THIS ( we do but we dont need it)
     path('dashboard/', include('dashboard.urls')),  # Include dashboard app URLs
-    path('', RedirectView.as_view(url='/dashboard/', permanent=False)),
+    path('', RedirectView.as_view(url='/dashboard/', permanent=False)), # Redirect root to dashboard
 ]

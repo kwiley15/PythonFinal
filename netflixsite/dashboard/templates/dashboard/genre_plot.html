@@ -1,61 +1,64 @@
-<!--<!DOCTYPE html>
-<html>
-	<head>
-		<title>Genre Plot</title>
-	</head>
-	<body>
-		<h1>Genre Distribution Plot</h1>
-
-		<p><a href="{% url 'index' %}">Back to Home</a></p>
-	</body>
-</html>
--->
+{% load static %}
+<!--load static files (Css , pngs)-->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
-		<title>Netflix Plots Dashboard</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> 
+    <!--set charcter encodingn-->
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" /><!--make page responsive for mobile-->
+		<title>Netflix Dashboard - Plots</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+		/><!--link to bootstrap-->
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" /><!--link to CSS-->
 	</head>
 	<body>
-		<h1>Netflix Analysis Plots</h1>
+		{% include 'dashboard/navbar.html' %}
+        <!--load the navbar from navbar.html-->
 
-		{% load static %}
+		<div class="container mt-4"><!--main container for content -->
+			<h1>Netflix Genre Plots</h1>
+            <!--bootstrap row for responsive grid of images -->
+			<div class="row">
+				<div class="col-md-6 mb-3"> <!--each column contains a plot image -->
+					<img
+						src="{% static 'dashboard/plots/Figure_1.png' %}"
+						class="img-fluid rounded"
+						alt="Plot 1"
+					/><!--display the images-->
+				</div>
+				<div class="col-md-6 mb-3">
+					<img
+						src="{% static 'dashboard/plots/Figure_2.png' %}"
+						class="img-fluid rounded"
+						alt="Plot 2"
+					/><!--display the images-->
+				</div>
+				<div class="col-md-6 mb-3">
+					<img
+						src="{% static 'dashboard/plots/Figure_3.png' %}"
+						class="img-fluid rounded"
+						alt="Plot 3"
+					/><!--display the images -->
+				</div>
+				<div class="col-md-6 mb-3">
+					<img
+						src="{% static 'dashboard/plots/Figure_4.png' %}"
+						class="img-fluid rounded"
+						alt="Plot 4"
+					/><!--display the images-->
+				</div>
+				<div class="col-md-6 mb-3">
+					<img
+						src="{% static 'dashboard/plots/Figure_5.png' %}"
+						class="img-fluid rounded"
+						alt="Plot 5"
+					/><!--display the images -->
+				</div>
+			</div>
+		</div>
 
-		<h2>Top 10 Genres</h2>
-		<img
-			src="{% static 'dashboard/plots/Most_Common_Genres.png ' %}"
-			alt="Top 10 Genres"
-			style="max-width: 90%; height: auto; margin-bottom: 30px"
-		/>
-
-		<h2>Rating Distribution</h2>
-		<img
-			src="{% static 'dashboard/plots/Content_Distribution_by_Rating.png' %}"
-			alt="Rating Distribution"
-			style="max-width: 90%; height: auto; margin-bottom: 30px"
-		/>
-
-		<h2>Content Added Over Years</h2>
-		<img
-			src="{% static 'dashboard/plots/Trend_of_Movies_and_TV_Shows_Added_Over_Years.png' %}"
-			alt="Content Added Over Years"
-			style="max-width: 90%; height: auto; margin-bottom: 30px"
-		/>
-
-		<h2>Top Countries with Most Titles</h2>
-		<img
-			src="{% static 'dashboard/plots/Countries_with_Most_Content.png' %}"
-			alt="Top Countries"
-			style="max-width: 90%; height: auto; margin-bottom: 30px"
-		/>
-
-		<h2>Top Directors Featured on Netflix</h2>
-		<img
-			src="{% static 'dashboard/plots/Top_Directors_on_Netflix.png' %}"
-			alt="Top Directors"
-			style="max-width: 90%; height: auto; margin-bottom: 30px"
-		/>
-
-		<p><a href="{% url 'index' %}">Back to Home</a></p>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script><!--bootstrap script-->
 	</body>
 </html>

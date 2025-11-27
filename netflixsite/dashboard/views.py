@@ -1,170 +1,13 @@
-
-# # Create your views here.
-# from django.shortcuts import render
-# from .models import NetflixTitle
-# from django.db.models import Count
-# from django.core.paginator import Paginator
-# import matplotlib.pyplot as plt
-# import io
-# import urllib, base64
-
-# # Homepage
-# def index(request):
-#     return render(request, 'dashboard/index.html')
-
-
-# # Genre distribution plot
-# def genre_plot(request):
-#     listed_in = NetflixTitle.objects.values('listed_in').annotate(count=Count('listed_in')).order_by('-count')
-#     labels = [g['listed_in'] for g in listed_in]
-#     counts = [g['count'] for g in listed_in]
-
-#     plt.figure(figsize=(10,6))
-#     plt.bar(labels, counts, color='skyblue')
-#     plt.xticks(rotation=90)
-    
-
-#     buf = io.BytesIO()
-#     plt.savefig(buf, format='png')
-#     buf.seek(0)
-#     string = base64.b64encode(buf.read())
-#     uri = urllib.parse.quote(string)
-#     return render(request, 'dashboard/genre_plot.html', {'data': uri})
-
-# # Search page with pagination
-
-# def search(request):
-#     query = request.GET.get('q', '')
-#     genre_filter = request.GET.get('listed_in', '')
-#     year_filter = request.GET.get('year', '')
-#     country_filter = request.GET.get('country', '')
-
-#     results = NetflixTitle.objects.all()
-
-#     if query:
-#         results = results.filter(title__icontains=query)
-#     if genre_filter:
-#         results = results.filter(listed_in=genre_filter)
-#     if year_filter:
-#         results = results.filter(release_year=year_filter)
-#     if country_filter:
-#         results = results.filter(country=country_filter)
-
-#     # Pagination
-#     paginator = Paginator(results, 20)
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-
-#     # Dropdown data
-#     Listed_in = NetflixTitle.objects.values_list('listed_in', flat=True).distinct()
-#     years = NetflixTitle.objects.values_list('release_year', flat=True).distinct().order_by('release_year')
-#     countries = NetflixTitle.objects.values_list('country', flat=True).distinct()
-
-#     return render(request, 'dashboard/search.html', {
-#         'page_obj': page_obj,
-#         'listed_in': Listed_in,
-#         'years': years,
-#         'countries': countries,
-#         'query': query,
-#         'genre_filter': genre_filter,
-#         'year_filter': year_filter,
-#         'country_filter': country_filter
-#     })
-
-
-# from django.shortcuts import render
-# from .models import NetflixTitle
-# from django.db.models import Count, Q
-# from django.core.paginator import Paginator
-# import matplotlib
-# matplotlib.use('Agg')  # safe backend
-# import matplotlib.pyplot as plt
-# import io, urllib, base64
-# import pandas as pd
-
-# # Homepage
-# def index(request):
-#     return render(request, 'dashboard/index.html')
-
-
-# # Genre plot (split multiple genres)
-# def genre_plot(request):
-#     # Split genres and count
-#     all_genres = NetflixTitle.objects.values_list('listed_in', flat=True)
-#     genre_list = []
-#     for g in all_genres:
-#         genre_list.extend([x.strip() for x in g.split(',')])
-    
-#     genre_counts = pd.Series(genre_list).value_counts().head(10)
-
-#     plt.figure(figsize=(10,6))
-#     genre_counts.plot(kind='bar', color='skyblue')
-#     plt.xticks(rotation=45)
-#     plt.tight_layout()
-
-#     buf = io.BytesIO()
-#     plt.savefig(buf, format='png')
-#     buf.seek(0)
-#     string = base64.b64encode(buf.read())
-#     uri = urllib.parse.quote(string)
-#     return render(request, 'dashboard/genre_plot.html', {'data': uri})
-
-
-# # Search page with multi-field search, filters, pagination
-# def search(request):
-#     query = request.GET.get('q', '')
-#     genre_filter = request.GET.get('listed_in', '')
-#     year_filter = request.GET.get('year', '')
-#     country_filter = request.GET.get('country', '')
-
-#     results = NetflixTitle.objects.all()
-
-#     # Multi-field search
-#     if query:
-#         results = results.filter(
-#             Q(title__icontains=query) |
-#             Q(director__icontains=query) |
-#             Q(cast__icontains=query)
-#         )
-
-#     # Filters
-#     if genre_filter:
-#         results = results.filter(listed_in__icontains=genre_filter)
-#     if year_filter:
-#         results = results.filter(release_year=year_filter)
-#     if country_filter:
-#         results = results.filter(country__icontains=country_filter)
-
-#     results = results.order_by('-release_year', 'title')
-
-#     # Pagination
-#     paginator = Paginator(results, 20)
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-
-#     # Dropdown data
-#     listed_in_choices = NetflixTitle.objects.values_list('listed_in', flat=True).distinct()
-#     years = NetflixTitle.objects.values_list('release_year', flat=True).distinct().order_by('release_year')
-#     countries = NetflixTitle.objects.values_list('country', flat=True).distinct()
-
-#     return render(request, 'dashboard/search.html', {
-#         'page_obj': page_obj,
-#         'listed_in': listed_in_choices,
-#         'years': years,
-#         'countries': countries,
-#         'query': query,
-#         'genre_filter': genre_filter,
-#         'year_filter': year_filter,
-#         'country_filter': country_filter
-#     })
-from django.shortcuts import render
-from .models import NetflixTitle
-from django.db.models import Q
-from django.core.paginator import Paginator
-import pandas as pd
-from pathlib import Path
+from django.shortcuts import render # Import render 
+from .models import NetflixTitle # import netflixsite model for database queries 
+from django.db.models import Q # Import Q for complex queries 
+from django.core.paginator import Paginator # import this for large dataset control
+import pandas as pd # import pandas to work with csv 
+from pathlib import Path # path to handle files 
 
 # Load cleaned data for homepage display
+# this data is only used for the home page to make it look not so blank,
+# (not database querying which is done in search view)
 CLEANED_CSV_PATH = Path(__file__).resolve().parent.parent.parent / "data" / "cleaned_netflix_titles.csv"
 df = pd.read_csv(CLEANED_CSV_PATH)
 
@@ -172,15 +15,15 @@ df = pd.read_csv(CLEANED_CSV_PATH)
 
 # Homepage
 def index(request):
-    #table_html = df.to_html(classes='table table-striped', index=False)
-    #context = {'table_html': table_html}
+    #convert dataframe to list of lists for easier rendering in template
     data = df.values.tolist()  # just the row values
     columns = df.columns.tolist()  # column headers
 
     paginator = Paginator(data, 10)  # 10 rows per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_number = request.GET.get('page') # get current page from URL query parameters
+    page_obj = paginator.get_page(page_number) # get the page object
 
+    #send table data to template
     context = {
         "columns": columns,
         "page_obj": page_obj,
@@ -189,58 +32,70 @@ def index(request):
 
 
 # Plots page using static images
-def genre_plot(request):
-    """
-    Display all 5 Netflix analysis plots from static images.
-    """
+def genre_plot(request): 
+   # Display all 5 Netflix analysis plots from static images.
+    #this simply renders the template with the patplotlib generated images
     return render(request, 'dashboard/genre_plot.html')
 
 
-# Search page with multi-field search, filters, pagination
 def search(request):
-    query = request.GET.get('q', '')
-    genre_filter = request.GET.get('listed_in', '')
-    year_filter = request.GET.get('year', '')
-    country_filter = request.GET.get('country', '')
+    query = request.GET.get('q', '') # user search input for title , director , cast default is nothing 
+    selected_genres = request.GET.getlist('listed_in', []) # list of genres selected by the user emtpy by deafult 
+    year_filter = request.GET.get('year', '') # filter for release year 
+    country_filter = request.GET.get('country', '') # filter for country 
+    sort_by = request.GET.get('sort', 'newest') # sorting option default is newest 
 
-    results = NetflixTitle.objects.all()
+    results = NetflixTitle.objects.all() # queryset containing all netflix title records 
 
-    # Multi-field search (title, director, cast)
     if query:
+        # filter titles where title , director or cast contains the search string 
         results = results.filter(
             Q(title__icontains=query) |
             Q(director__icontains=query) |
             Q(cast__icontains=query)
         )
 
-    # Filters
-    if genre_filter:
-        results = results.filter(listed_in__icontains=genre_filter)
-    if year_filter:
+    if selected_genres: 
+        genre_query = Q() # start an empty Q object for OR conditions 
+        for g in selected_genres: # and an or condition for each selected genre 
+            genre_query |= Q(listed_in__icontains=g)
+        results = results.filter(genre_query) # filter the results by the combined genre or conditions 
+
+    if year_filter: # filter by release year if provided 
         results = results.filter(release_year=year_filter)
-    if country_filter:
+
+    if country_filter: # filter by country if provdied 
         results = results.filter(country__icontains=country_filter)
 
-    results = results.order_by('-release_year', 'title')
+    # Sorting options
+    if sort_by == 'a-z':
+        results = results.order_by('title') # A-Z
+    elif sort_by == 'z-a':
+        results = results.order_by('-title') # Z-A
+    elif sort_by == 'oldest':
+        results = results.order_by('release_year') # oldest first 
+    else:  # newest
+        results = results.order_by('-release_year') # newest first 
 
-    # Pagination
-    paginator = Paginator(results, 20)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    paginator = Paginator(results, 20) # 20 rows per page 
+    page_number = request.GET.get('page') # get current page number from URL query string 
+    page_obj = paginator.get_page(page_number) # returns page object for templates rendering 
 
-    # Dropdown/filter data
-    listed_in_choices = NetflixTitle.objects.values_list('listed_in', flat=True).distinct()
-    years = NetflixTitle.objects.values_list('release_year', flat=True).distinct().order_by('release_year')
-    countries = NetflixTitle.objects.values_list('country', flat=True).distinct()
+    genre_options = ["Action", "Adventure", "Anime", "Children", "Comedies", # options for checkboxes 
+                     "Documentaries", "Dramas", "Horror", "Independent",
+                     "Music", "Romantic", "Sci-Fi", "Thrillers"]
 
+    years = NetflixTitle.objects.values_list('release_year', flat=True).distinct().order_by('release_year') # get all unique years in the database for filter dropdown 
+    countries = NetflixTitle.objects.values_list('country', flat=True).distinct() # get all the countrys in the database for the filter dropdown 
+ 
     return render(request, 'dashboard/search.html', {
-        'page_obj': page_obj,
-        'listed_in': listed_in_choices,
-        'years': years,
-        'countries': countries,
-        'query': query,
-        'genre_filter': genre_filter,
-        'year_filter': year_filter,
-        'country_filter': country_filter
+        'page_obj': page_obj, #paginated results for current page
+        'genre_options': genre_options, # available genre filters
+        'years': years, # available year filtes
+        'countries': countries, #available country filters
+        'query': query, # current search query (inputs keep values through pages) 
+        'selected_genres': selected_genres, # currently selected genres
+        'year_filter': year_filter, # currently selected year filter
+        'country_filter': country_filter, # currently selected country filter 
+        'sort_by': sort_by, # current sort option 
     })
-

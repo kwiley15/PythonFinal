@@ -1,0 +1,106 @@
+/* this CSS sheet is styling for all pages  */
+body {
+    background-color: #1a1a1a !important;  /*dark background for entire page*/
+    color: #e5e5e5;/* light color for readability (had it grey couldnt see anything)*/
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3 {
+    color: #e50914; /*red for headings*/
+    font-weight: bold; /*bold heading*/
+}
+
+/* Navbar */
+.navbar {
+    background-color: #111 !important; /*dark background for navbar*/
+    border-bottom: 1px solid #333; /*small border for seperation */
+}
+
+.navbar-brand {
+    font-weight: bold; 
+    color: #e50914 !important; /*red for text on navbar*/
+}
+
+.nav-link {
+    color: #e5e5e5 !important; /*ligh color for navbar links (could not see them any other color)*/
+}
+
+.nav-link:hover {
+    color: #e50914 !important; /*red color for hovering over a button*/
+}
+
+/* Filter Box */
+.filter-box {
+    background: #1f1f1f; /*darker for background to tell difference*/
+    padding: 15px; 
+    border-radius: 8px;
+    border: 1px solid #333; /*boarder defintnions */
+}
+
+/* Buttons */
+.btn-netflix {
+    background-color: #e50914; /*red background*/
+    color: white; /*white text */
+    font-weight: bold;
+}
+
+.btn-netflix:hover {
+    background-color: #b00610; /* darker red for hovering */
+}
+
+/* List Groups */
+.list-group-item {
+    background: #1f1f1f; /*dark table background*/
+    color: #e5e5e5; /*light table text to be able to see data */
+    border: 1px solid #333; /*basic boader defintion*/
+}
+
+/*table*/
+table.table {
+    background-color: #1f1f1f !important; /*dark tabel background*/
+    color: #e5e5e5 !important; /*light text to see data */
+    border-color: #333 !important; /*basic boader defintion*/
+}
+
+table.table th {
+    background-color: #111 !important; /*darker header*/
+    color: #d30101 !important; /*bright red text for headers */
+    font-weight: bold;
+    border-color: #333 !important;
+}
+
+table.table td {
+    background-color: #1f1f1f !important; /*table cell background*/
+    color: #fdfdfd !important; /*white to be able to read text */
+    border-color: #333 !important;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #e50914; /*red links */
+}
+
+a:hover {
+    color: #b00610; /* different shade of red on hover*/
+}
+
+/* Pagination */
+.pagination .page-link {
+    background-color: #1f1f1f !important; /*dark background for pagination links*/
+    color: #e5e5e5 !important; /* white text to be able to see */
+    border: 1px solid #333 !important; /*boarder for links */
+    font-weight: bold;
+}
+
+.pagination .page-link:hover {
+    background-color: #e50914 !important; /*red hover effect */
+    color: #fff !important; /* white text on hover */
+    border-color: #e50914 !important; /* boader matches background */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #e50914 !important; /* red background for active page*/
+    color: #fff !important; /*white text */
+    border-color: #e50914 !important; /*boader same as background */
+}
