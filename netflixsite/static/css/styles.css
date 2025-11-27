@@ -1,0 +1,106 @@
+/* Global Dark Theme */
+body {
+    background-color: #1a1a1a !important;
+    color: #e5e5e5;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3 {
+    color: #e50914;
+    font-weight: bold;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #111 !important;
+    border-bottom: 1px solid #333;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #e50914 !important;
+}
+
+.nav-link {
+    color: #e5e5e5 !important;
+}
+
+.nav-link:hover {
+    color: #e50914 !important;
+}
+
+/* Filter Box */
+.filter-box {
+    background: #1f1f1f;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+/* Buttons */
+.btn-netflix {
+    background-color: #e50914;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-netflix:hover {
+    background-color: #b00610;
+}
+
+/* List Groups */
+.list-group-item {
+    background: #1f1f1f;
+    color: #e5e5e5;
+    border: 1px solid #333;
+}
+
+/* TABLE FIX — Fully dark + readable */
+table.table {
+    background-color: #1f1f1f !important;
+    color: #e5e5e5 !important;
+    border-color: #333 !important;
+}
+
+table.table th {
+    background-color: #111 !important;
+    color: #d30101 !important;
+    font-weight: bold;
+    border-color: #333 !important;
+}
+
+table.table td {
+    background-color: #1f1f1f !important;
+    color: #fdfdfd !important;
+    border-color: #333 !important;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #e50914;
+}
+
+a:hover {
+    color: #b00610;
+}
+
+/* Pagination */
+.pagination .page-link {
+    background-color: #1f1f1f !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #333 !important;
+    font-weight: bold;
+}
+
+.pagination .page-link:hover {
+    background-color: #e50914 !important;
+    color: #fff !important;
+    border-color: #e50914 !important;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #e50914 !important;
+    color: #fff !important;
+    border-color: #e50914 !important;
+}

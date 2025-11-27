@@ -40,18 +40,15 @@ def genre_plot(request):
     return render(request, 'dashboard/genre_plot.html')
 
 
-# Search page with multi-field search, filters, pagination
 def search(request):
-    # capture search query and filters from GET parameters
     query = request.GET.get('q', '')
-    genre_filter = request.GET.getlist('listed_in')
+    selected_genres = request.GET.getlist('listed_in', [])
     year_filter = request.GET.get('year', '')
     country_filter = request.GET.get('country', '')
-    selected_genres = [g for g in genre_filter if g]
-    #start with all the database entries
+    sort_by = request.GET.get('sort', 'newest')
+
     results = NetflixTitle.objects.all()
 
-    # Multi-field search (title, director, cast)
     if query:
         results = results.filter(
             Q(title__icontains=query) |
@@ -59,42 +56,47 @@ def search(request):
             Q(cast__icontains=query)
         )
 
-    # apply filter if user selected any 
-    if selected_genres: 
-        for grenre in selected_genres:
-            results = results.filter(listed_in__icontains=grenre)
+    if selected_genres:
+        genre_query = Q()
+        for g in selected_genres:
+            genre_query |= Q(listed_in__icontains=g)
+        results = results.filter(genre_query)
+
     if year_filter:
         results = results.filter(release_year=year_filter)
+
     if country_filter:
         results = results.filter(country__icontains=country_filter)
 
-    # Order results by release year (newest first) then title
-    results = results.order_by('-release_year', 'title')
+    # Sorting options
+    if sort_by == 'a-z':
+        results = results.order_by('title')
+    elif sort_by == 'z-a':
+        results = results.order_by('-title')
+    elif sort_by == 'oldest':
+        results = results.order_by('release_year')
+    else:  # newest
+        results = results.order_by('-release_year')
 
-    # Pagination 
-    paginator = Paginator(results, 20) # 20 results per page
-    page_number = request.GET.get('page') # get current page number from request
-    page_obj = paginator.get_page(page_number) # get the page object for the current page
+    paginator = Paginator(results, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    
-    # Dropdown/filter data (distinct values from database)
-    
-    listed_in_choices = ["Action", "Adventure", "Anime", "Children", "Comedies", "Documentaries",
-                         "Dramas", "Horror", "Independent", "Music", "Romantic", "Sci-Fi", "Thrillers"]
-
+    genre_options = ["Action", "Adventure", "Anime", "Children", "Comedies",
+                     "Documentaries", "Dramas", "Horror", "Independent",
+                     "Music", "Romantic", "Sci-Fi", "Thrillers"]
 
     years = NetflixTitle.objects.values_list('release_year', flat=True).distinct().order_by('release_year')
     countries = NetflixTitle.objects.values_list('country', flat=True).distinct()
-    
-    #send results and filter values back to the search template
+
     return render(request, 'dashboard/search.html', {
         'page_obj': page_obj,
-        'listed_in_choices': listed_in_choices,
+        'genre_options': genre_options,
         'years': years,
         'countries': countries,
         'query': query,
         'selected_genres': selected_genres,
         'year_filter': year_filter,
-        'country_filter': country_filter
+        'country_filter': country_filter,
+        'sort_by': sort_by,
     })
-

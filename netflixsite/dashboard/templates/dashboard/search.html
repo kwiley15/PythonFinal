@@ -1,62 +1,143 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Netflix Content</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
+
 <body>
-    <h1>Search & Filter Netflix Content</h1>
 
-    <form method="get">
-        <input type="text" name="q" placeholder="Search by title, director, cast" value="{{ query }}">
-        
-        <div>
-            <label><strong>Genres:</strong></label><br>
+{% include 'dashboard/navbar.html' %}
 
-            {% for g in listed_in_choices  %}
-                <label class="me-3">
+<div class="container mt-4">
+    <h1>Search Netflix Content</h1>
+
+    <!-- Search & Filters -->
+    <form method="get" class="filter-box mb-4">
+
+        <input type="text" class="form-control mb-3" name="q"
+            placeholder="Search by title, director, cast"
+            value="{{ query }}">
+
+        <!-- Genres -->
+        <div class="mb-3">
+            <strong>Genres:</strong><br>
+            {% for g in genre_options %}
+                <label class="me-2">
                     <input type="checkbox" name="listed_in" value="{{ g }}"
-                        {% if g in selected_grenres %}checked{% endif %}>
-                    {{ g }}
+                        {% if g in selected_genres %}checked{% endif %}> {{ g }}
                 </label>
             {% endfor %}
         </div>
 
-        <select name="year">
-            <option value="">All Years</option>
-            {% for y in years %}
-                <option value="{{ y }}" {% if y|stringformat:"s" == year_filter|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
-            {% endfor %}
-        </select>
+        <!-- Year / Country / Sort -->
+        <div class="row">
+            <div class="col-md-3">
+                <select name="year" class="form-select mb-3">
+                    <option value="">All Years</option>
+                    {% for y in years %}
+                        <option value="{{ y }}"
+                            {% if y|stringformat:"s" == year_filter|stringformat:"s" %}selected{% endif %}>
+                            {{ y }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <select name="country">
-            <option value="">All Countries</option>
-            {% for c in countries %}
-                <option value="{{ c }}" {% if c == country_filter %}selected{% endif %}>{{ c }}</option>
-            {% endfor %}
-        </select>
+            <div class="col-md-3">
+                <select name="country" class="form-select mb-3">
+                    <option value="">All Countries</option>
+                    {% for c in countries %}
+                        <option value="{{ c }}" {% if c == country_filter %}selected{% endif %}>
+                            {{ c }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <button type="submit">Search</button>
+            <div class="col-md-3">
+                <select name="sort" class="form-select mb-3">
+                    <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Newest First</option>
+                    <option value="oldest" {% if sort_by == 'oldest' %}selected{% endif %}>Oldest First</option>
+                    <option value="a-z" {% if sort_by == 'a-z' %}selected{% endif %}>A → Z</option>
+                    <option value="z-a" {% if sort_by == 'z-a' %}selected{% endif %}>Z → A</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-netflix me-2">Search</button>
+        <a href="{% url 'search' %}" class="btn btn-outline-light">Clear Filters</a>
     </form>
 
-    <ul>
-        {% for item in page_obj %}
-            <li>{{ item.title }} ({{ item.release_year }}) - {{ item.listed_in }} - {{ item.country }}</li>
+    <!-- RESULTS LIST -->
+    <ul class="list-group mb-3">
+        {% for title in page_obj %}
+            <li class="list-group-item">
+                <strong>{{ title.title }}</strong> ({{ title.release_year }})
+                — {{ title.listed_in }} — {{ title.country }}
+            </li>
         {% empty %}
-            <li>No results found.</li>
+            <li class="list-group-item">No results found.</li>
         {% endfor %}
     </ul>
 
-    <div class="pagination">
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}&q={{ query }}&listed_in={{ genre_filter }}&year={{ year_filter }}&country={{ country_filter }}">Previous</a>
-        {% endif %}
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}&q={{ query }}&listed_in={{ genre_filter }}&year={{ year_filter }}&country={{ country_filter }}">Next</a>
-        {% endif %}
-    </div>
+    <!-- PAGINATION -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-3">
 
-    <p><a href="{% url 'index' %}">Back to Home</a></p>
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        First
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        Previous
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                {{ num }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        Next
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        Last
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
