@@ -1,26 +1,66 @@
-{% load static %}
-<!-- load static pages -->
+<!-- {% load static %}
+ load static pages 
 <nav
 	class="navbar navbar-expand-lg"
 	style="background-color: #141414; border-bottom: 1px solid #333"
 >
 	<div class="container-fluid">
-		<!-- Brand / Logo linking to home page-(fun exrta thing)-->
+		
 		<a class="navbar-brand text-danger fw-bold" href="{% url 'index' %}"
 			>Netflix Dashboard</a
 		>
 
-		<!-- Navbar links -->
+		
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ms-auto">
 				<li class="nav-item">
-					<a class="nav-link text-light" href="{% url 'index' %}">Home</a><!--Link to homepage-->
+					<a class="nav-link text-light" href="{% url 'index' %}">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light" href="{% url 'search' %}">Search</a><!--Link to search page-->
+					<a class="nav-link text-light" href="{% url 'search' %}">Search</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light" href="{% url 'genre_plot' %}">Plots</a><!--Link to plots page -->
+					<a class="nav-link text-light" href="{% url 'genre_plot' %}">Plots</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav> -->
+{% load static %}
+<nav
+	class="navbar navbar-expand-lg navbar-dark"
+	style="background-color: #141414; border-bottom: 1px solid #333"
+>
+	<div class="container-fluid">
+		<!-- Brand -->
+		<a class="navbar-brand text-danger fw-bold" href="{% url 'index' %}">
+			Netflix Dashboard
+		</a>
+
+		<!-- Toggler Button (needed for collapse on small screens) -->
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#navbarNav"
+			aria-controls="navbarNav"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!-- Collapsible Menu -->
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item">
+					<a class="nav-link text-light" href="{% url 'index' %}">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-light" href="{% url 'search' %}">Search</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-light" href="{% url 'genre_plot' %}">Plots</a>
 				</li>
 			</ul>
 		</div>
